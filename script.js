@@ -27,6 +27,12 @@
                         card.style.display = 'none';
                     }
                 });
+                setTimeout(() => {
+                    projectCards.forEach(card => {
+                        card.style.overflowY = 'auto';
+                    });
+                }, 10);
+                
             });
         });
         

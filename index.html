@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harsh Nevse - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #000;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #000;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #000;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 49%, #000 49%, #000 51%, transparent 51%);
+            background-size: 20px 20px;
+            opacity: 0.02;
+            animation: move 20s linear infinite;
+        }
+
+        @keyframes move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 8rem;
+            max-width: 1000px;
+            z-index: 2;
+            position: relative;
+        }
+		
+
+        .hero-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            border: 4px solid #000;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-photo:hover {
+            transform: scale(1.05);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero .bio {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            border: 2px solid #000;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-button:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #000;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            background: transparent;
+            border: 2px solid #000;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #000;
+            color: #fff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-card {
+            border: 2px solid #000;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: #f5f5f5;
+            border: 1px solid #000;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-category {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-description {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+			white-space: pre-line; 
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            padding: 0.2rem 0.5rem;
+            background: #000;
+            color: #fff;
+            font-size: 0.8rem;
+            border-radius: 0;
+        }
+
+        .add-project-card {
+            border: 2px dashed #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-project-card:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .add-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #000;
+            color: #fff;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .contact .section-title {
+            color: #fff;
+        }
+
+        .contact .section-title::after {
+            background: #fff;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-block;
+            padding: 1rem;
+            border: 2px solid #fff;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .social-link:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #fff;
+            color: #000;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: #fff;
+                flex-direction: column;
+                justify-content: start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+                border-top: 1px solid #000;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fff;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #000;
+            border-radius: 0;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">Harsh Nevse</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-photo">
+                <img src="New_Latest_photo.jpg" alt="Harsh Nevse" >
+            </div>
+            <div class="hero-text">
+                <h1>Harsh Nevse</h1>
+                <p class="subtitle">AI-Architect and LLM's Enthusiast</p>
+                <p class="bio">
+                    Hi, I'm Harsh. Pre-final year BTech student at MIT World Peace University, specializing in AI & ML. Talk to me about Agentic AI, LLMs, RAG, ML and Data Science.
+                </p>
+                <a href="#projects" class="cta-button">View My Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <h2 class="section-title">My Projects</h2>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+			<button class="filter-btn" data-filter="ai">Agentic AI</button>
+            <button class="filter-btn" data-filter="ml">ML</button>
+            <button class="filter-btn" data-filter="da">Data Analytics</button>
+			<button class="filter-btn" data-filter="misc">Misc</button>
+
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Project cards will be dynamically generated here -->
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <p>Let's collaborate and build something amazing together.</p>
+        
+        <div class="social-links">
+            <a href="[GITHUB_URL]" class="social-link" target="_blank">GitHub</a>
+            <a href="[LINKEDIN_URL]" class="social-link" target="_blank">LinkedIn</a>
+            <a href="[TWITTER_URL]" class="social-link" target="_blank">Twitter</a>
+            <a href="mailto:[EMAIL]" class="social-link">Email</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Harsh Nevse. Crafted with precision and passion.</p>
+    </footer>
+
+    <script>
+        // Sample project data - you can modify this
+        const projects = [
+            {
+                id: 1,
+                title: "Code Porting Agent: Legacy C++ to Modern C++ to Java Code Porter and Converter",
+                category: "ai",
+                description: `An agent that intelligently converts C++ code to Java using AI-powered language models. 
+				
+				             The tool supports both legacy C++98 code (with automatic modernization to C++11+) and direct conversion from modern C++ to Java.`,
+                tech: ["Python", "Jupyter", "LangGraph"],
+                github: "https://github.com/HarshNevse/Code_Porting_Agent_Legacy_Cpp_to_Modern_Cpp_to_Java_Code_Porter_and_Converter",
+                image: "images/project_0_8.png"
+            },
+            {
+                id: 2,
+                title: "QuizBot - AI Teaching Assistant",
+                category: "ai",
+                description: `QuizBot acts as an AI Assistant to the teacher. Just upload your teaching material and it creates customizable 'MCQ' question sets based on teacher-selected difficulty, 
+				              number of questions, and options, built using LangChain.`,
+                tech: ["Python", "Jupyter", "LangChain", "Ollama"],
+                github: "https://github.com/HarshNevse/QuizBot__AI_Teaching_Assistant",
+                image: "images/project_0_9.png"
+            },
+            {
+                id: 3,
+                title: "Multi Agent System: Retriever + ChartGenerator",
+                category: "ai",
+                description: `This project is a multi-agent system built using <strong>LangGraph</strong> in combination with <strong>Haystack</strong>, where:
+				
+                            <strong>Retriever Agent</strong>: Uses a Haystack RAG pipeline as a tool to fetch relevant information from user-uploaded documents.
+
+                            <strong>Chart Generator Agent</strong>: Uses a Python REPL tool to generate charts based on retrieved information.`,
+                tech: ["Python", "Jupyter", "LangGraph", "Haystack", "RAG"],
+                github: "https://github.com/HarshNevse/Multi_Agent_System_Retriever-Chart_Generator",
+                image: "images/project_1.png"
+            },
+            {
+                id: 4,
+                title: "Retrieval Augmented Generation (RAG) Agent",
+                category: "ai",
+                description: `This project implements a Retrieval-Augmented Generation (RAG) system that enhances generative AI models with information retrieval capabilities. 
+                                                It allows users to upload documents, query the system, and receive responses based on both stored knowledge and real-time retrieval.`,
+                tech: ["Python", "Jupyter", "Haystack", "RAG"],
+                github: "https://github.com/HarshNevse/RAG_Agent",
+                image: "images/project_2.png"
+            },
+            {
+                id: 5,
+                title: "RMSE-Based Assessment of Model Complexity and Overfitting in Polynomial Regression Frameworks",
+                category: "ml",
+                description: `This project demonstrates overfitting in machine learning using polynomial regression on the Advertising dataset. 
+                            By progressively increasing the degree of polynomial features, we analyze the bias-variance trade-off and how model complexity impacts training and testing performance.`,
+                tech: ["Python", "Jupyter", "Scikit-learn", "Seaborn", "Matplotlib"],
+                github: "https://github.com/HarshNevse/RMSE-Based-Assessment-of-Model-Complexity-and-Overfitting-in-Polynomial-Regression-Frameworks",
+                image: "images/project_3.png"
+            },
+            {
+                id: 6,
+                title: "Data Analysis: Webpage Metrics Animemangatoon",
+                category: "da",
+                description: `This project analyzes user engagement data for various articles on AnimeMangaToon using A/B testing and various data visualizations. 
+                            The objective is to gain insights into user behavior and suggest improvements to increase user retention and reduce bounce rates.`,
+                tech: ["Python", "Jupyter", "Matplotlib"],
+                github: "https://github.com/HarshNevse/Data_Analysis_Webpage_Metrics_Animemangatoon",
+                image: "images/project_4.png"
+            },
+            {
+                id: 7,
+                title: "Data Analysis: Ambient Air Quality of Maharashtra 2015",
+                category: "da",
+                description: `This project analyzes air quality data from Maharashtra for the year 2015, focusing on three key pollutants: SO2, NO2, and RSPM/PM10.
+                            The analysis aims to assess pollutant levels, identify trends, and provide insights into potential pollution hotspots and implications for public health.`,
+                tech: ["Python", "Jupyter", "Matplotlib"],
+                github: "https://github.com/HarshNevse/Ambient_Air_Quality_of_Maharashtra_2015-",
+                image: "images/project_5.png"
+            },
+            {
+                id: 8,
+                title: "Performance Analysis: Solar Plants in India",
+                category: "da",
+                description: `This project analyzes solar power generation data from two Indian solar plants, 
+				              comparing power output trends, inverter efficiency, and irradiation levels to optimize energy utilization and detect underperforming inverters.`,
+                tech: ["Tableau"],
+                github: "https://github.com/HarshNevse/Performance_Analysis_of_Solar_Plants_in_India",
+                image: "images/project_6.png"
+            },
+            {
+                id: 9,
+                title: "SBN 13&10 Checksum Calculator",
+                category: "misc",
+                description: `The ISBN 13&10 Checksum Tool is a Python-based utility for calculating the check digits for both ISBN-10 and ISBN-13 numbers.
+				
+                            This tool helps users verify the validity of ISBN numbers by generating the correct check digit based on the initial part of the ISBN.`,
+                tech: ["Python"],
+                github: "https://github.com/HarshNevse/ISBN_13-10_Checksum_Calculator/tree/main",
+                image: "images/project_7.png"
+            }
+        ];
+
+        // DOM elements
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectsGrid = document.getElementById('projectsGrid');
+
+        // Mobile menu toggle
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Project filtering
+        let currentFilter = 'all';
+
+        function renderProjects(filter = 'all') {
+				const filteredProjects = filter === 'all'
+					? projects
+					: projects.filter(project => project.category === filter);
+
+				projectsGrid.innerHTML = '';
+
+				filteredProjects.forEach(project => {
+					const projectCard = document.createElement('div');
+					projectCard.className = 'project-card';
+					projectCard.style.animationDelay = `${filteredProjects.indexOf(project) * 0.1}s`;
+					projectCard.onclick = () => window.open(project.github, '_blank');
+
+					projectCard.innerHTML = `
+						<div class="project-image" style="background-image: url('${project.image}'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+						<h3 class="project-title">${project.title}</h3>
+						<p class="project-category">${project.category}</p>
+						<p class="project-description">${project.description}</p>
+						<div class="project-tech">
+							${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+						</div>
+					`;
+
+					projectsGrid.appendChild(projectCard);
+				});
+
+				// Add "Add Project" card (you might want to implement this)
+			}
+        // Filter button event listeners
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Get filter value and render projects
+                const filter = button.getAttribute('data-filter');
+                currentFilter = filter;
+                renderProjects(filter);
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Initialize projects on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProjects();
+        });
+
+        // Add some interactive animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe project cards for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.project-card').forEach(card => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    observer.observe(card);
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
